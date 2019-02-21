@@ -23,8 +23,13 @@
 
 echo "
 Hostname      : $(hostname)
-LAN Address   : $(ip a s eno1|grep 'inet '|awk '{print $2}'|sed 's,/.*,,')
-LAN Name      : $(getent hosts `ip a s eno1|grep 'inet '|awk '{print $2}'|sed 's,/.*,,'` | awk '{print $2}')
+LAN Address   : $(ip a s ens33|grep 'inet '|awk '{print $2}'|sed 's,/.*,,')
+
+LAN Name      : $(getent hosts `ip a s ens33|grep 'inet '|awk '{print $2}'|sed 's,/.*,,'` | awk '{print $2}')
 External IP   : $(curl -s icanhazip.com)
 External Name : $(getent hosts `curl -s icanhazip.com` | awk '{print $2}')
+Router Name   :$(getent hosts 'ip route list default | awk '{print $3}'' | awk '{print $2}')
+Router IP     :$(ip route list default | awk '{print $3}')
+Network Number:$(getent networks lan|awk '{print $2}')
+Network Name  :$(getent networks lan|awk '{print $1}')
 "
