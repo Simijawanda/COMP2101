@@ -64,3 +64,4 @@ echo "Setuid files:"
 echo "=========================="
 find /bin /usr/bin -type f -executable -perm -4000 -ls 2>/dev/null | sort -k 5 | head
 echo "=========================="
+

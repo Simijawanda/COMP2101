@@ -9,7 +9,6 @@
 #   LAN Name      : net2-linux
 #   External IP   : 1.2.3.4
 #   External Name : some.name.from.our.isp
-
 # the LAN info uses a hardcoded interface name of "ens33"
 #    - change ens33 to whatever interface you  have and want to gather info about
 # Improve this script by including the default router address and name
@@ -24,12 +23,11 @@
 echo "
 Hostname      : $(hostname)
 LAN Address   : $(ip a s ens33|grep 'inet '|awk '{print $2}'|sed 's,/.*,,')
-
 LAN Name      : $(getent hosts `ip a s ens33|grep 'inet '|awk '{print $2}'|sed 's,/.*,,'` | awk '{print $2}')
+Router 	      : $(ip route | grep default | awk '{print $3}')
+Router Name   : $(getent hosts `ip route|grep 'default '|awk '{print $3}'|sed 's,/.*,,'` | awk '{print $2}')
+Network	      : $(ip route | awk '{print $1}' | grep 10 |sed 's,/.*,,')192.168.139.2
+Network Name  : $(getent hosts `ip route|awk '{print $1}'|grep 10 |sed 's,/.*,,'` | awk '{print $2}')
 External IP   : $(curl -s icanhazip.com)
 External Name : $(getent hosts `curl -s icanhazip.com` | awk '{print $2}')
-Router Name   :$(getent hosts 'ip route list default | awk '{print $3}'' | awk '{print $2}')
-Router IP     :$(ip route list default | awk '{print $3}')
-Network Number:$(getent networks lan|awk '{print $2}')
-Network Name  :$(getent networks lan|awk '{print $1}')
 "

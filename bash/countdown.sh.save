@@ -1,0 +1,2 @@
+wget -O ~/bin/countdown.sh https://zonzorp.github.io/COMP2101/Labs/bash/scripts-lab4/countdown.sh
+chmod +x ~/bin/countdown.sh
